@@ -29,11 +29,3 @@ def dji(request):
         return HttpResponse(json.dumps(getQuotes('.DJI'), indent=2), content_type="application/json")
 
 
-def test(request):
-    myWindow = MyWindow.__call__()
-    myWindow.show()
-    print("Hello")
-    print(myWindow.call_test())
-    app.exec_()
-    return HttpResponse(json.dumps(getQuotes('.DJI'), indent=2), content_type="application/json")
-

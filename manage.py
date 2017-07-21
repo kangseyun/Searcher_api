@@ -8,9 +8,6 @@ from PyQt5.QAxContainer import *
 from api.views.kiwoon import MyWindow
 
 if __name__ == "__main__":
-    
-    print("runinmain")
-    print(sys.argv)
     #myWindow = MyWindow.__call__()
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "searcher_api.settings")
     try:
