@@ -9,6 +9,11 @@ from django.core.serializers import serialize
 import operator
 from googlefinance import getQuotes
 from django.core import serializers
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import  *
+from PyQt5.QAxContainer import *
+from .kiwoon import MyWindow
 
 
 def kospi(request):
@@ -22,3 +27,13 @@ def nasdaq(request):
 
 def dji(request):
         return HttpResponse(json.dumps(getQuotes('.DJI'), indent=2), content_type="application/json")
+
+
+def test(request):
+    myWindow = MyWindow.__call__()
+    myWindow.show()
+    print("Hello")
+    print(myWindow.call_test())
+    app.exec_()
+    return HttpResponse(json.dumps(getQuotes('.DJI'), indent=2), content_type="application/json")
+

@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
-from api.views.stock import kospi, kosdaq, nasdaq, dji
+from api.views.stock import kospi, kosdaq, nasdaq, dji, test
 from api.views.issue import issue_list
 from api.views.community import community_list
 
@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^kosdaq/$', kosdaq),
     url(r'^nasdaq/$', nasdaq),
     url(r'^dji/$', dji),
+    url(r'^test/$', test),
     url(r'^issue/$', issue_list),
     url(r'^issue/$', community_list),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
