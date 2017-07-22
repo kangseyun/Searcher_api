@@ -23,7 +23,7 @@ def kosdaq(request):
         return HttpResponse(json.dumps(getQuotes('KOSDAQ'), indent=2), content_type="application/json")
 
 def nasdaq(request):
-        return HttpResponse(json.dumps(getQuotes('NASDAQ'), indent=2), content_type="application/json")
+        return HttpResponse(json.dumps(getQuotes('KOSDAQ'), indent=2), content_type="application/json")
 
 def dji(request):
         return HttpResponse(json.dumps(getQuotes('.DJI'), indent=2), content_type="application/json")

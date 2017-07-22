@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from api.models import Issue, LANGUAGE_CHOICES, STYLE_CHOICES, Communite
+from api.models import Issue, Communite
+
+from api.models import Communite
 
 class IssueSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -24,10 +26,10 @@ class IssueSerializer(serializers.Serializer):
         return instance
 
 class communitySerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
     subject = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    content = serializers.CharField(style={'base_template': 'textarea.html'})
-   
+    content = serializers.CharField(max_length=65535)
+    user_name = serializers.CharField(max_length=64)
+    created = serializers.DateTimeField()
 
     def create(self, validated_data):
         """
@@ -44,3 +46,6 @@ class communitySerializer(serializers.Serializer):
 
         instance.save()
         return instance
+
+    class Meta:
+        model = Communite

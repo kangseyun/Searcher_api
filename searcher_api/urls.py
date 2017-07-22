@@ -19,7 +19,8 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from api.views.stock import kospi, kosdaq, nasdaq, dji
 from api.views.issue import issue_list
-from api.views.community import community_list
+from api.views.login import login, logout
+from api.views.community import community_list, community_post
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -42,7 +43,10 @@ urlpatterns = [
     url(r'^nasdaq/$', nasdaq),
     url(r'^dji/$', dji),
     url(r'^issue/$', issue_list),
-    url(r'^issue/$', community_list),
+    url(r'^board/$', community_list),
+    url(r'^board/post/$', community_post),
+    url(r'^login/$', login),
+    url(r'^logout/$', logout),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 41
