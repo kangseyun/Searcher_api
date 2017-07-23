@@ -1,7 +1,7 @@
 from django.core import serializers
 from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render
 
 from rest_framework import serializers, mixins, generics, status
@@ -17,7 +17,19 @@ from googlefinance import getQuotes
 import json
 import operator
 
-@csrf_exempt
+def get_community(request):
+    if request.method == 'GET':
+        n = int(request.GET.get('n'))
+        token = request.GET.get('token')
+
+        instance = Communite.objects.all()[n] 
+        serializer = communitySerializer(instance)
+
+        r = JSONRenderer().render(serializer.data)
+
+        return HttpResponse(r, content_type="application/json")
+
+
 def community_list(request):
     if request.method == 'GET':
         obj = Communite.objects.all()
