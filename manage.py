@@ -1,14 +1,8 @@
 #!/usr/bin/env python
 import os
 import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import  *
-from PyQt5.QAxContainer import *
-
-from api.views.kiwoon import MyWindow
 
 if __name__ == "__main__":
-    #myWindow = MyWindow.__call__()
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "searcher_api.settings")
     try:
         print("run in first try")

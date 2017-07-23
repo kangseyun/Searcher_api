@@ -10,10 +10,6 @@ import operator
 from googlefinance import getQuotes
 from django.core import serializers
 import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import  *
-from PyQt5.QAxContainer import *
-from .kiwoon import MyWindow
 
 
 def kospi(request):
@@ -23,7 +19,7 @@ def kosdaq(request):
         return HttpResponse(json.dumps(getQuotes('KOSDAQ'), indent=2), content_type="application/json")
 
 def nasdaq(request):
-        return HttpResponse(json.dumps(getQuotes('KOSDAQ'), indent=2), content_type="application/json")
+        return HttpResponse(json.dumps(getQuotes('.IXIC'), indent=2), content_type="application/json")
 
 def dji(request):
         return HttpResponse(json.dumps(getQuotes('.DJI'), indent=2), content_type="application/json")
