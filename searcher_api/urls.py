@@ -23,6 +23,8 @@ from api.views.stock import kospi, kosdaq, nasdaq, dji
 from api.views.issue import issue_list
 from api.views.login import login, logout, token_check
 from api.views.community import community_list, get_community, community_post, delete_community
+from django.conf.urls import include, url
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -50,6 +52,7 @@ urlpatterns = [
     url(r'^board/get/$', get_community),
     url(r'^board/delete/$', delete_community),
     url(r'^board/post/$', community_post),
+    url(r'fcm/', include('fcm.urls')),
 
     url(r'^token_check/$', token_check),
     url(r'^login/$', login),
