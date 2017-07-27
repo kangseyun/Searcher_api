@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.models import User
+
 from rest_framework import routers, serializers, viewsets
+
 from api.views.stock import kospi, kosdaq, nasdaq, dji
 from api.views.issue import issue_list
 from api.views.login import login, logout, token_check
@@ -54,4 +56,3 @@ urlpatterns = [
     url(r'^logout/$', logout),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
-41
