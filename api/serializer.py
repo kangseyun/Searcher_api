@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from api.models import Issue, Communite
+from rest_framework.renderers import JSONRenderer
 
+from api.models import Issue, Communite
 from api.models import Communite
 
 class IssueSerializer(serializers.Serializer):
@@ -8,7 +9,6 @@ class IssueSerializer(serializers.Serializer):
     subject = serializers.CharField(required=False, allow_blank=True, max_length=100)
     content = serializers.CharField(style={'base_template': 'textarea.html'})
    
-
     def create(self, validated_data):
         """
         Create and return a new `Snippet` instance, given the validated data.
@@ -49,3 +49,11 @@ class communitySerializer(serializers.Serializer):
 
     class Meta:
         model = Communite
+        fields = ('content', 'user_name', 'user_email', 'created')
+
+class communityJSONRenderer(JSONRenderer):
+    def render(self, data, accepted_media_type=None, renderer_context=None, status=False):
+        if status == True:
+            data['status'] = "self"
+
+        return super(communityJSONRenderer, self).render(data, accepted_media_type, renderer_context)

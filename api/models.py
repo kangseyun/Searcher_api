@@ -34,6 +34,7 @@ class Communite(models.Model):
     subject = models.CharField(max_length=100, blank=True, default='')
     content = models.TextField()
     user_name = models.CharField(max_length=64, null=True)
+    user_email = models.CharField(max_length=100, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -23,5 +23,3 @@ def nasdaq(request):
 
 def dji(request):
         return HttpResponse(json.dumps(getQuotes('.DJI'), indent=2), content_type="application/json")
-
-

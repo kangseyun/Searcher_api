@@ -10,7 +10,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
 from api.models import Communite, LoginData
-from api.serializer import communitySerializer
+from api.serializer import communitySerializer, communityJSONRenderer
 
 from googlefinance import getQuotes
 
@@ -23,9 +23,14 @@ def get_community(request):
         token = request.GET.get('token')
 
         instance = Communite.objects.all()[n] 
+        login_instance = LoginData.objects.filter(token=token)[0]
+
         serializer = communitySerializer(instance)
 
-        r = JSONRenderer().render(serializer.data)
+        if login_instance.email == instance.user_email:
+            r = communityJSONRenderer().render(serializer.data, status=True)
+        else:
+            r = communityJSONRenderer().render(serializer.data)
 
         return HttpResponse(r, content_type="application/json")
 
@@ -36,6 +41,24 @@ def community_list(request):
         serializer = communitySerializer(obj, many=True)
 
         return JsonResponse(serializer.data, safe=False)
+
+def delete_community(request):
+    return_data = {'status' : 'success'}
+
+    if request.method == 'GET':
+        n = int(request.GET.get('n'))
+        token = request.GET.get('token')
+
+        login_instance = LoginData.objects.filter(token = token)[0]
+
+        if login_instance:
+            instance = Communite.objects.all()[n]
+            instance.delete()
+        else:
+            return_data['status'] = 'failed'
+
+    return JsonResponse(return_data, safe=False)        
+
 
 @csrf_exempt
 def community_post(request):
@@ -48,7 +71,7 @@ def community_post(request):
         if not user_instance:
             pass  #  Show Error
 
-        instance = Communite(subject=subject, content=content, user_name=user_instance.display_name)
+        instance = Communite(subject=subject, content=content, user_email=user_instance.email, user_name=user_instance.display_name)
         instance.save()
 
         serializer = communitySerializer(instance)
