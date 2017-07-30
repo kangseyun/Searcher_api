@@ -18,7 +18,8 @@ class LoginData(models.Model):
     token = models.CharField(max_length=65)
     display_name = models.CharField(max_length=32)
     expire_time = models.DateTimeField(auto_now=False)
-
+    permission = models.IntegerField(default=0)
+    
     def save(self, *args, **kwargs):
         if self.email:
             now_time = datetime.now()
