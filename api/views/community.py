@@ -19,8 +19,11 @@ import operator
 
 def get_community(request):
     if request.method == 'GET':
-        n = int(request.GET.get('n'))
-        token = request.GET.get('token')
+        try:
+            n = int(request.GET.get('n'))
+            token = request.GET.get('token')
+        except:
+            pass
 
         instance = Communite.objects.all()[n] 
         login_instance = LoginData.objects.filter(token=token)[0]
@@ -31,7 +34,7 @@ def get_community(request):
             r = communityJSONRenderer().render(serializer.data, status=True)
         else:
             r = communityJSONRenderer().render(serializer.data)
-
+        
         return HttpResponse(r, content_type="application/json")
 
 
@@ -66,6 +69,8 @@ def community_post(request):
         subject = request.POST.get('subject')
         content = request.POST.get('content')
         token = request.POST.get('token')
+
+        print(subject, content)
 
         user_instance = LoginData.objects.filter(token=token)[0]
         if not user_instance:

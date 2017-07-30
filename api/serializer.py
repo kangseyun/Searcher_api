@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
 
-from api.models import Issue, Communite
-from api.models import Communite
+from api.models import Issue, Communite, ConditionExpressList, InvestmentItems
 
 class IssueSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -57,3 +56,16 @@ class communityJSONRenderer(JSONRenderer):
             data['status'] = "self"
 
         return super(communityJSONRenderer, self).render(data, accepted_media_type, renderer_context)
+
+class ConditionSerializer(serializers.Serializer):
+    express_index = serializers.IntegerField()
+    express_name = serializers.CharField(max_length=64)
+
+    class Meta:
+        model = ConditionExpressList
+
+class ConditionItemSerializer(serializers.Serializer):
+    item_name = serializers.CharField(max_length=48)
+
+    class Meta:
+        model = InvestmentItems
