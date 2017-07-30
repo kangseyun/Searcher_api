@@ -5,7 +5,8 @@ from api.models import ConditionExpressList, InvestmentItems
 from api.serializer import ConditionSerializer, ConditionItemSerializer
 
 def get_conditionlist(request):
-    serializer = ConditionSerializer(ConditionExpressList.objects.all(), many=True)
+    obj = ConditionExpressList.objects.all()
+    serializer = ConditionSerializer(obj, many=True)
     r = JSONRenderer().render(serializer.data)
 
     return HttpResponse(r, content_type='application/json')

@@ -1,13 +1,17 @@
 from django.db import models
 from pygments.lexers import get_all_lexers
 from pygments.styles import get_all_styles
-
 from base64 import b64encode
 from datetime import datetime, timedelta
+
 
 class ConditionExpressList(models.Model):
     express_index = models.IntegerField(default=0)
     express_name = models.CharField(primary_key=True, max_length=64, blank=False)
+
+class ConditionPermission(models.Model):
+    name = models.CharField(max_length=30, default='')
+    stock = models.ManyToManyField(ConditionExpressList, blank=True, verbose_name="권한")
 
 class InvestmentItems(models.Model):
     item_name = models.CharField(max_length=48, blank=False)
@@ -18,8 +22,9 @@ class LoginData(models.Model):
     token = models.CharField(max_length=65)
     display_name = models.CharField(max_length=32)
     expire_time = models.DateTimeField(auto_now=False)
-    permission = models.IntegerField(default=0)
-    
+    permission = models.ForeignKey(ConditionPermission, verbose_name='권한')
+
+
     def save(self, *args, **kwargs):
         if self.email:
             now_time = datetime.now()
@@ -29,6 +34,9 @@ class LoginData(models.Model):
             self.expire_time = now_time + timedelta(seconds = expire_second)
             
         super(LoginData, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.email
 
 class Issue(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -47,3 +55,4 @@ class Communite(models.Model):
 
     class Meta:
         ordering = ('-created', )
+
