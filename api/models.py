@@ -10,8 +10,18 @@ class ConditionExpressList(models.Model):
     express_name = models.CharField(primary_key=True, max_length=64, blank=False)
 
 class InvestmentItems(models.Model):
+    item_code = models.CharField(max_length=32)
     item_name = models.CharField(max_length=48, blank=False)
     item_condition = models.ForeignKey(ConditionExpressList)
+
+    item_transactions = models.IntegerField(blank=False, default=0)
+
+    item_current_price = models.IntegerField(blank=False, default=0)
+    item_high_price = models.IntegerField(blank=False, default=0)
+    item_low_price = models.IntegerField(blank=False, default=0)
+    item_price = models.IntegerField(blank=False, default=0)
+
+    item_percentage = models.FloatField(blank=False, default=0)
 
 class LoginData(models.Model):
     email = models.CharField(max_length=100, blank=False)
