@@ -1,12 +1,21 @@
 from django.http import JsonResponse, HttpResponse
 from rest_framework.renderers import JSONRenderer
 
-from api.models import ConditionExpressList, InvestmentItems 
+from api.models import ConditionExpressList, InvestmentItems, LoginData
 from api.serializer import ConditionSerializer, ConditionItemSerializer
 
 def get_conditionlist(request):
-    serializer = ConditionSerializer(ConditionExpressList.objects.all(), many=True)
-    r = JSONRenderer().render(serializer.data)
+    if request.method == "GET":
+        user = request.GET.get('user')
+        print(user)
+        instance = LoginData.objects.filter(email = user)
+        obj = instance[0].ConditionPermission
+
+        print(obj.name)
+        
+        obj = ConditionExpressList.objects.all()
+        serializer = ConditionSerializer(obj, many=True)
+        r = JSONRenderer().render(serializer.data)
 
     return HttpResponse(r, content_type='application/json')
 
