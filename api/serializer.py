@@ -64,8 +64,30 @@ class ConditionSerializer(serializers.Serializer):
     class Meta:
         model = ConditionExpressList
 
-class ConditionItemSerializer(serializers.Serializer):
+class ConditionItemsSerializer(serializers.Serializer):
+    item_code = serializers.CharField(max_length=32)
     item_name = serializers.CharField(max_length=48)
 
     class Meta:
         model = InvestmentItems
+        field = ('item_code', 'item_name', )
+
+class ConditionItemSerializer(serializers.Serializer):
+    item_code = serializers.CharField(max_length=32)
+    item_name = serializers.CharField(max_length=48)
+
+    item_transactions = serializers.IntegerField()
+
+    item_current_price = serializers.IntegerField()
+    item_high_price = serializers.IntegerField()
+    item_low_price = serializers.IntegerField()
+    item_price = serializers.IntegerField()
+
+    item_percentage = serializers.FloatField()
+
+    class Meta:
+        model = InvestmentItems
+        field = ('item_code', 'item_name', 'item_condition',
+                 'item_transactions', 'item_current_price', 'item_high_price',
+                 'item_low_price', 'item_price', 'item_percentage')
+

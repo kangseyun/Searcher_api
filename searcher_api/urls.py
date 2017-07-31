@@ -25,7 +25,7 @@ from api.views.issue import issue_list
 from api.views.login import login, logout, token_check
 from api.views.community import community_list, get_community, community_post, delete_community
 
-from api.views.condition import get_conditionlist, get_condition_item
+from api.views.condition import get_conditionlist, get_condition_item, get_condition_items
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -55,6 +55,7 @@ urlpatterns = [
     url(r'^board/post/$', community_post),
 
     url(r'^condition/gets/$', get_conditionlist),
+    url(r'^condition_item/gets/$', get_condition_items),
     url(r'^condition_item/get/$', get_condition_item),
 
     url(r'fcm/', include('fcm.urls')),
