@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'fcm',
 ]
 
-FCM_APIKEY = "AIzaSyDFfytBrHFsRpXUgMTAc4KLA0R1UizfB8Q"
+FCM_APIKEY = "AAAAiObZwJc:APA91bFiPiXqL7wyumyA5PBUnZWB6-erwumwOh3bcDbBLAJko8jBqwfYrSVpcIEwThpzjNuFssjUCZPacXRubMTcmat5AYkDi9doyve6MdByMIZ9eruyggyAnVPB_bxMYkyPp2atnw1A"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

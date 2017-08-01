@@ -1,18 +1,3 @@
-"""searcher_api URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.models import User
@@ -24,7 +9,7 @@ from api.views.stock import kospi, kosdaq, nasdaq, dji
 from api.views.issue import issue_list
 from api.views.login import login, logout, token_check
 from api.views.community import community_list, get_community, community_post, delete_community
-
+from api.views.push import fcm_push, pushToken
 from api.views.condition import get_conditionlist, get_condition_item, get_condition_items
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -53,11 +38,12 @@ urlpatterns = [
     url(r'^board/get/$', get_community),
     url(r'^board/delete/$', delete_community),
     url(r'^board/post/$', community_post),
+    url(r'^pushToken/$', pushToken),
 
     url(r'^condition/gets/$', get_conditionlist),
     url(r'^condition_item/gets/$', get_condition_items),
     url(r'^condition_item/get/$', get_condition_item),
-
+    url(r'^push/$', fcm_push),
     url(r'fcm/', include('fcm.urls')),
 
     url(r'^token_check/$', token_check),
