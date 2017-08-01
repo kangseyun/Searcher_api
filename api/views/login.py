@@ -2,7 +2,7 @@ from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from api.models import LoginData
+from api.models import LoginData, ConditionPermission
 
 import json
 import urllib.parse
@@ -20,9 +20,9 @@ def login(request):
         request_displayname = request.POST.get('userDisplayName')
 
         instance = LoginData.objects.filter(email = request_email)
-
+        obj = ConditionPermission.objects.all()
         if not instance:
-            newLoginInstance = LoginData(email = request_email, display_name = request_displayname)
+            newLoginInstance = LoginData(email = request_email, display_name = request_displayname, permission=obj[0])
             newLoginInstance.save()
 
             response_data['status'] = 'login_ok'
