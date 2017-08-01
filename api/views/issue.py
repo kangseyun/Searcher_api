@@ -1,14 +1,18 @@
-from django.shortcuts import render
+from django.core.serializers import serialize
+from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import serializers, mixins, generics, status
+from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+
+from rest_framework import serializers, mixins, generics, status
 from rest_framework.generics import GenericAPIView
 from rest_framework.renderers import JSONRenderer
-import json
-from django.core.serializers import serialize
-import operator
+
 from googlefinance import getQuotes
-from django.core import serializers
+
+import operator
+import json
+
 from api.models import Issue
 from api.serializer import IssueSerializer
 
@@ -23,7 +27,7 @@ def issue_list(request):
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = IssueSerializer(data=data)
+        serializer = IssueSeriaeizer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)

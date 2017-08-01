@@ -76,12 +76,15 @@ class ConditionItemSerializer(serializers.Serializer):
     item_code = serializers.CharField(max_length=32)
     item_name = serializers.CharField(max_length=48)
 
+    item_marketcap = serializers.IntegerField()
+
     item_transactions = serializers.IntegerField()
 
     item_current_price = serializers.IntegerField()
     item_high_price = serializers.IntegerField()
     item_low_price = serializers.IntegerField()
     item_price = serializers.IntegerField()
+    item_yester_price = serializers.IntegerField()
 
     item_percentage = serializers.FloatField()
 
@@ -90,4 +93,3 @@ class ConditionItemSerializer(serializers.Serializer):
         field = ('item_code', 'item_name', 'item_condition',
                  'item_transactions', 'item_current_price', 'item_high_price',
                  'item_low_price', 'item_price', 'item_percentage')
-

@@ -19,6 +19,7 @@ def get_conditionlist(request):
 
     return HttpResponse(r, content_type='application/json')
 
+
 def get_condition_items(request):
     if request.method == "GET":
         try:

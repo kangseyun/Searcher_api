@@ -1,6 +1,7 @@
 from django.db import models
 from pygments.lexers import get_all_lexers
 from pygments.styles import get_all_styles
+
 from base64 import b64encode
 from datetime import datetime, timedelta
 
@@ -9,14 +10,19 @@ class ConditionExpressList(models.Model):
     express_index = models.IntegerField(default=0)
     express_name = models.CharField(primary_key=True, max_length=64, blank=False)
 
+    def __str__(self):
+        return self.express_name
+
 class ConditionPermission(models.Model):
     name = models.CharField(max_length=30, default='')
-    stock = models.ManyToManyField(ConditionExpressList, blank=True, verbose_name="권한")
+    stock = models.ManyToManyField(ConditionExpressList, blank=True, verbose_name="user_permission")
 
 class InvestmentItems(models.Model):
     item_code = models.CharField(max_length=32)
     item_name = models.CharField(max_length=48, blank=False)
     item_condition = models.ForeignKey(ConditionExpressList)
+
+    item_marketcap = models.IntegerField(blank=False, default=0)    
 
     item_transactions = models.IntegerField(blank=False, default=0)
 
@@ -24,6 +30,7 @@ class InvestmentItems(models.Model):
     item_high_price = models.IntegerField(blank=False, default=0)
     item_low_price = models.IntegerField(blank=False, default=0)
     item_price = models.IntegerField(blank=False, default=0)
+    item_yester_price = models.IntegerField(blank=False, default=0)
 
     item_percentage = models.FloatField(blank=False, default=0)
 
@@ -32,8 +39,7 @@ class LoginData(models.Model):
     token = models.CharField(max_length=65)
     display_name = models.CharField(max_length=32)
     expire_time = models.DateTimeField(auto_now=False)
-    permission = models.ForeignKey(ConditionPermission, verbose_name='권한')
-
+    permission = models.ForeignKey(ConditionPermission, verbose_name='user_permission')
 
     def save(self, *args, **kwargs):
         if self.email:

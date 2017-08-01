@@ -1,8 +1,13 @@
 from django.contrib import admin
-from api.models import Issue, Communite, LoginData, ConditionPermission
-# Register your models here.
+from django.contrib.auth.admin import UserAdmin
 
-admin.site.register(ConditionPermission)
+from api.models import Issue, Communite, LoginData, ConditionPermission
+
+class Test(admin.ModelAdmin):
+    filter_horizontal = ('stock', )
+
+admin.site.register(ConditionPermission, Test)
+
 admin.site.register(LoginData)
 admin.site.register(Issue)
 admin.site.register(Communite)

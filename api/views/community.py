@@ -17,6 +17,7 @@ from googlefinance import getQuotes
 import json
 import operator
 
+
 def get_community(request):
     if request.method == 'GET':
         try:
