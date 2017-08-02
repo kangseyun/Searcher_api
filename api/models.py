@@ -1,6 +1,9 @@
 from django.db import models
-from pygments.lexers import get_all_lexers
-from pygments.styles import get_all_styles
+
+from fcm.models import AbstractDevice
+#from pygments.lexers import get_all_lexers
+#from pygments.styles import get_all_styles
+
 from base64 import b64encode
 from datetime import datetime, timedelta
 
@@ -47,7 +50,6 @@ class LoginData(models.Model):
     permission = models.ForeignKey(ConditionPermission, verbose_name='user_permission')
     push = models.CharField(max_length=200, default='')
 
-
     def save(self, *args, **kwargs):
         if self.email:
             now_time = datetime.now()
@@ -60,6 +62,10 @@ class LoginData(models.Model):
 
     def __str__(self):
         return self.email
+
+class PushDevice(AbstractDevice):
+    dev_id = models.CharField(max_length=256)
+    user = models.ForeignKey(LoginData)
 
 class Issue(models.Model):
     created = models.DateTimeField(auto_now_add=True)

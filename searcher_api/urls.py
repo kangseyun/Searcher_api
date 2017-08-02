@@ -12,6 +12,8 @@ from api.views.community import community_list, get_community, community_post, d
 from api.views.push import fcm_push, pushToken
 from api.views.condition import get_conditionlist, get_condition_item, get_condition_items
 
+from api.models import ConditionPermission
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         fields = ('url', 'username', 'email', 'is_staff')
@@ -20,6 +22,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+if not len(ConditionPermission.objects.all()):
+    print('a')
+    ConditionPermission(name='default_permission').save()
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -38,12 +44,14 @@ urlpatterns = [
     url(r'^board/get/$', get_community),
     url(r'^board/delete/$', delete_community),
     url(r'^board/post/$', community_post),
-    url(r'^pushToken/$', pushToken),
 
     url(r'^condition/gets/$', get_conditionlist),
     url(r'^condition_item/gets/$', get_condition_items),
     url(r'^condition_item/get/$', get_condition_item),
-    url(r'^push/$', fcm_push),
+
+    url(r'^set_pushToken/$', pushToken),
+    url(r'^push_condition/$', fcm_push),
+
     url(r'fcm/', include('fcm.urls')),
 
     url(r'^token_check/$', token_check),

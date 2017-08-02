@@ -7,11 +7,8 @@ from api.serializer import ConditionSerializer, ConditionItemsSerializer, Condit
 def get_conditionlist(request):
     if request.method == "GET":
         user = request.GET.get('request_email')
-        print(user)
-        instance = LoginData.objects.filter(email = user)
-        obj = instance[0].permission
-
-        print(obj.name)
+        #instance = LoginData.objects.filter(email=user)
+        #obj = instance[0].permission
         
         obj = ConditionExpressList.objects.all()
         serializer = ConditionSerializer(obj, many=True)
