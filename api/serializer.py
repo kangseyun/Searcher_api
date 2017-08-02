@@ -60,6 +60,7 @@ class communityJSONRenderer(JSONRenderer):
 class ConditionSerializer(serializers.Serializer):
     express_index = serializers.IntegerField()
     express_name = serializers.CharField(max_length=64)
+    express_content = serializers.CharField(max_length=200)
 
     class Meta:
         model = ConditionExpressList

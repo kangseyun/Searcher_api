@@ -11,7 +11,8 @@ from datetime import datetime, timedelta
 class ConditionExpressList(models.Model):
     express_index = models.IntegerField(default=0)
     express_name = models.CharField(primary_key=True, max_length=64, blank=False)
-
+    express_content = models.TextField(default='')
+    
     def __str__(self):
         return self.express_name
 
