@@ -49,7 +49,7 @@ class LoginData(models.Model):
     display_name = models.CharField(max_length=32)
     expire_time = models.DateTimeField(auto_now=False)
     permission = models.ForeignKey(ConditionPermission, verbose_name='user_permission')
-    push = models.CharField(max_length=200, default='')
+    push = models.CharField(max_length=200, default='', null=True)
 
     def save(self, *args, **kwargs):
         if self.email:
