@@ -137,3 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# FCM SETTING
+FCM_MAX_RECIPIENTS = 100
+FCM_DEVICE_MODEL = "api.PushDevice"
