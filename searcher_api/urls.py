@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^condition/gets/$', get_conditionlist),
     url(r'^condition_item/gets/$', get_condition_items),
     url(r'^condition_item/get/$', get_condition_item),
-    url(r'^push/$', fcm_push),
+    url(r'^condition_push/$', fcm_push),
     url(r'fcm/', include('fcm.urls')),
 
     url(r'^rank/$', rank_one),
