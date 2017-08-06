@@ -48,6 +48,7 @@ def fcm_push(request):
     if request.method == "GET":
         condition_index = request.GET.get('condition_index')
         item_name = request.GET.get('item_name')
+        item_price = request.GET.get('item_price')
         push_type = request.GET.get('status')
         
         list_instance = ConditionExpressList.objects.filter(express_index=condition_index)
@@ -61,9 +62,13 @@ def fcm_push(request):
                 message = str()
 
                 if push_type == '1':
-                    message = '{} 주식이 조건식 {} 번 에 편입되었습니다.'.format(item_name, condition_index)
+                    message = '{} 주식이 조건식 {} 번 에 편입되었습니다. (가격 : {})'.format(item_name,
+                                                                                          condition_index,
+                                                                                          item_price)
                 else:
-                    message = '{} 주식이 조건식 {} 번 에서 이탈 하였습니다.'.format(item_name, condition_index)
+                    message = '{} 주식이 조건식 {} 번 에서 이탈 하였습니다. (가격 : {})'.format(item_name, 
+                                                                                             condition_index,
+                                                                                             item_price)
 
                 user_device.send_message({'message':message}, collapse_key='something')
 
