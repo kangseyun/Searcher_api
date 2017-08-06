@@ -30,7 +30,10 @@ def pushToken(request):
         if (login_instance.push or login_instance.push != "no") and push_token != "no":
             login_instance.push = push_token
             login_instance.save()
-
+        else:
+            login_instance.push = ""
+            login_instance.save()
+            
         if push_instance is None and login_instance:
             Device(user=login_instance,
                    dev_id=login_instance.token,
