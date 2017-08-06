@@ -17,17 +17,18 @@ def pushToken(request):
         email = request.POST.get('userEmail')
         push_token = request.POST.get('userToken')
 
+        print(push_token)
+
         Device = get_device_model()
         push_instance = None
 
-        #obj = LoginData.objects.filter(email=email).update(push=token)
         try:
             login_instance = LoginData.objects.filter(email=email)[0]
             push_instance = Device.objects.filter(user=login_instance)[0]
         except:
             pass
 
-        if (login_instance.push or login_instance.push != "no") and push_token != "no":
+        if push_token and push_token != "no":
             login_instance.push = push_token
             login_instance.save()
         else:
@@ -38,6 +39,9 @@ def pushToken(request):
             Device(user=login_instance,
                    dev_id=login_instance.token,
                    reg_id=login_instance.push).save()
+        else:
+            push_instance.reg_id = login_instance.push
+            push_instance.save()
             
 
     response_data['status'] = 1
@@ -72,8 +76,8 @@ def fcm_push(request):
                     message = '{} 주식이 조건식 {} 번 에서 이탈 하였습니다. (가격 : {})'.format(item_name, 
                                                                                              condition_index,
                                                                                              item_price)
-
-                user_device.send_message({'message':message}, collapse_key='something')
+                print(user_device.reg_id)
+                print(user_device.send_message({'message':message}, collapse_key='something'))
 
 
     response_data['status'] = 1
