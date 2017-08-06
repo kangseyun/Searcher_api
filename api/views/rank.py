@@ -28,7 +28,6 @@ def rank_one(request):
             if i.a:
                 result.append(i.a.text)
             for obj in i.find_all("span", class_="tah p11 red01"):
-                print(obj)
                 result2.append(obj.text.strip())
     obj = {"name": result, "name2": result2}
     return JsonResponse(obj, safe=False)
@@ -47,15 +46,16 @@ def rank_down(request):
     for tr in body[1].find_all('tr'):
         t.append(tr)
 
-    for i in range(1,10):
+    for i in range(1,20):
         test = t[i].find_all('td')
         for i in test:
             if i.a:
                 result.append(i.a.text)
             for obj in i.find_all("span", class_="tah p11 nv01"):
-                print(obj)
                 result2.append(obj.text.strip())
-    obj = {"name": result, "name2": result2}
+
+    my_list = [x for x in result2 if x.find('%') != -1]
+    obj = {"name": result, "name2": my_list}
     return JsonResponse(obj, safe=False)
 
 
@@ -79,7 +79,6 @@ def kosdaq_up(request):
             if i.a:
                 result.append(i.a.text)
             for obj in i.find_all("span", class_="tah p11 red01"):
-                print(obj)
                 result2.append(obj.text.strip())
     obj = {"name": result, "name2": result2}
     return JsonResponse(obj, safe=False)
@@ -98,14 +97,15 @@ def kosdaq_down(request):
     for tr in body[1].find_all('tr'):
         t.append(tr)
 
-    for i in range(1,10):
+    for i in range(1,20):
         test = t[i].find_all('td')
         for i in test:
             if i.a:
                 result.append(i.a.text)
             for obj in i.find_all("span", class_="tah p11 nv01"):
-                print(obj)
                 result2.append(obj.text.strip())
-    obj = {"name": result, "name2": result2}
+    my_list = [x for x in result2 if x.find('%') != -1]
+
+    obj = {"name": result, "name2": my_list}
     return JsonResponse(obj, safe=False)
 
