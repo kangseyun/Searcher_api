@@ -5,11 +5,16 @@ from api.models import ConditionExpressList, InvestmentItems, LoginData
 from api.serializer import ConditionSerializer, ConditionItemsSerializer, ConditionItemSerializer
 
 def get_conditionlist(request):
+    obj = object
+
     if request.method == "GET":
         user = request.GET.get('request_email')
-        print(user)
-        instance = LoginData.objects.filter(email = user)
-        obj = instance[0].permission.stock.all()
+        instance = LoginData.objects.filter(email=user)
+
+        try:
+            obj = instance[0].permission.stock.all()
+        except:
+            pass
 
         serializer = ConditionSerializer(obj, many=True)
         r = JSONRenderer().render(serializer.data)
