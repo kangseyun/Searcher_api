@@ -28,6 +28,7 @@ class communitySerializer(serializers.Serializer):
     subject = serializers.CharField(required=False, allow_blank=True, max_length=100)
     content = serializers.CharField(max_length=65535)
     user_name = serializers.CharField(max_length=64)
+    token = serializers.CharField(max_length=65)
     created = serializers.DateTimeField()
 
     def create(self, validated_data):
@@ -42,13 +43,13 @@ class communitySerializer(serializers.Serializer):
         """
         instance.subject = validated_data.get('subject', instance.title)
         instance.content = validated_data.get('content', instance.code)
-
+        instance.token = validated_data.get('token', instance.token)
         instance.save()
         return instance
 
     class Meta:
         model = Communite
-        fields = ('content', 'user_name', 'user_email', 'created')
+        fields = ('content', 'user_name', 'user_email', 'token', 'created')
 
 class communityJSONRenderer(JSONRenderer):
     def render(self, data, accepted_media_type=None, renderer_context=None, status=False):

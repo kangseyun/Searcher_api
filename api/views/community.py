@@ -77,7 +77,7 @@ def community_post(request):
         if not user_instance:
             pass  #  Show Error
 
-        instance = Communite(subject=subject, content=content, user_email=user_instance.email, user_name=user_instance.display_name)
+        instance = Communite(subject=subject, content=content, user_email=user_instance.email, user_name=user_instance.display_name, token=token)
         instance.save()
 
         serializer = communitySerializer(instance)

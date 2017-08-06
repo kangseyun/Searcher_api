@@ -84,8 +84,9 @@ class Communite(models.Model):
     content = models.TextField()
     user_name = models.CharField(max_length=64, null=True)
     user_email = models.CharField(max_length=100)
+    token = models.CharField(max_length=65)
     created = models.DateTimeField(auto_now_add=True)
-
+    
     class Meta:
         ordering = ('-created', )
 
