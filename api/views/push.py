@@ -69,11 +69,11 @@ def fcm_push(request):
                 message = str()
 
                 if push_type == '1':
-                    message = '{} 주식이 조건식 {} 번 에 편입되었습니다. (가격 : {})'.format(item_name,
+                    message = '{} 주식이 조건식 {} 에 편입되었습니다. (가격 : {})'.format(item_name,
                                                                                           condition_index,
                                                                                           item_price)
                 else:
-                    message = '{} 주식이 조건식 {} 번 에서 이탈 하였습니다. (가격 : {})'.format(item_name, 
+                    message = '{} 주식이 조건식 {} 에서 이탈 하였습니다. (가격 : {})'.format(item_name, 
                                                                                              condition_index,
                                                                                              item_price)
                 print(user_device.reg_id)
