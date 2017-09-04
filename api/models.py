@@ -68,6 +68,10 @@ class PushDevice(AbstractDevice):
     dev_id = models.CharField(max_length=256)
     user = models.ForeignKey(LoginData)
 
+class PushLog(models.Model):
+    subject = models.CharField(max_length=100, default='')
+    condition_index = models.IntegerField(default='')
+
 class Issue(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     subject = models.CharField(max_length=100, blank=True, default='')

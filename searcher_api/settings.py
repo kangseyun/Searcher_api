@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'fcm',
+    'channels',
 ]
 
 FCM_APIKEY = "AAAAiObZwJc:APA91bFiPiXqL7wyumyA5PBUnZWB6-erwumwOh3bcDbBLAJko8jBqwfYrSVpcIEwThpzjNuFssjUCZPacXRubMTcmat5AYkDi9doyve6MdByMIZ9eruyggyAnVPB_bxMYkyPp2atnw1A"
